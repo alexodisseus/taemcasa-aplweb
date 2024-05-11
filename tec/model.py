@@ -33,3 +33,38 @@ def list_all(db: Session, question_id: int):
 
 
 
+
+def get_list_appetizer():
+	with Session(engine) as session:
+	
+		query = select(Appetizer)
+		data = session.exec(query).all()
+
+		return data
+
+
+"""
+name:str
+	tag:str
+	cost:str
+	measure:str  
+	amount: str
+"""
+def add_appetizer( name:str, tag:str, cost:str, measure:str, amount:str):
+	appetizer = Appetizer()
+	appetizer.name = name
+	appetizer.tag = tag
+	appetizer.cost = cost
+	appetizer.measure = measure
+	appetizer.amount = amount
+
+
+	with Session(engine) as session:
+		
+		session.add(appetizer)
+		
+		session.commit()
+		session.refresh(appetizer)
+
+		return appetizer
+
