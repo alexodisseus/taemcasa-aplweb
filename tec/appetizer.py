@@ -28,10 +28,9 @@ def list():
 
 
 
-    if request.method == 'POST':
-
-        data = model.get_list_appetizer()
-        print(data)
+    
+    data = model.get_list_appetizer()
+    print(data)
 
 
 
@@ -45,10 +44,22 @@ def list():
 def add():
 
     
+    if request.method == 'POST':
+        name = request.form['name']
+        tag = request.form['tag']
+        cost = request.form['cost']
+        measure = request.form['measure']
+        amount = request.form['amount']
 
-    data = add_appetizer()
+        data = model.add_appetizer(name, tag, cost, measure, amount)
+        if data:
+            print(data)
+            return redirect(url_for('appetizer.list'))
+            pass
 
-    return "<h3>Legumes Selecionados</h3><p>adicionar</p>"
+
+    return render_template('appetizer/add.html')
+
 
 
 
