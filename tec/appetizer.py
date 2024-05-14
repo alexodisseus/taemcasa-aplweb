@@ -1,6 +1,7 @@
 import app
 import model
 
+from google_images_search import GoogleImagesSearch
 
 from flask import Blueprint, render_template, current_app , request , session, redirect, url_for
 
@@ -28,12 +29,20 @@ def get_image_url(item_name):
     for url in search(query, num=1, stop=1):
         return url
 
+
+
+
+
+
+
 @appetizer.route('/listar', methods = ['GET','POST'])
 def list():
+    
 
 
     data = model.get_list_filter_appetizer()
     
+
     return render_template('appetizer/list.html' , data=data )
 
 
@@ -53,7 +62,6 @@ def add():
 
         data = model.add_appetizer(name, tag, cost, measure, amount)
         if data:
-            print(data)
             return redirect(url_for('appetizer.list'))
             pass
 
