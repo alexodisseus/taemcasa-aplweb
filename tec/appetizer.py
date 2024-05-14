@@ -1,6 +1,7 @@
 import app
 import model
 
+
 from flask import Blueprint, render_template, current_app , request , session, redirect, url_for
 
 
@@ -22,19 +23,18 @@ def index():
 
 
 
+def get_image_url(item_name):
+    query = item_name + " imagem"
+    for url in search(query, num=1, stop=1):
+        return url
 
 @appetizer.route('/listar', methods = ['GET','POST'])
 def list():
 
 
-
+    data = model.get_list_filter_appetizer()
     
-    data = model.get_list_appetizer()
-    print(data)
-
-
-
-    return render_template('appetizer/list.html')
+    return render_template('appetizer/list.html' , data=data )
 
 
 

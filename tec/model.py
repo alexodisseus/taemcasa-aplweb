@@ -43,13 +43,16 @@ def get_list_appetizer():
 		return data
 
 
-"""
-name:str
-	tag:str
-	cost:str
-	measure:str  
-	amount: str
-"""
+def get_list_filter_appetizer():
+	with Session(engine) as session:
+		#coloar filtros
+		query = select(Appetizer)
+		data = session.exec(query).all()
+
+		return data
+
+
+
 def add_appetizer( name:str, tag:str, cost:str, measure:str, amount:str):
 	appetizer = Appetizer()
 	appetizer.name = name
