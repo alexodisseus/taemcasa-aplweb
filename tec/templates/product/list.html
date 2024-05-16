@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+  <h2 class="text-center mb-4">Lista de Produtos</h2>
+  <ul class="list-group">
+    {% for product in data %}
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-3 col-3">
+
+          <img src="{{url_for('static', filename='img/icone2.png')}} " alt="{{ product.name }}" class="img-fluid">
+        </div>
+        <div class="col-md-9 col-9">
+          <strong>Nome:</strong> {{ product.name }} <br>
+          <strong>Categoria:</strong> {{ product.tag }}<br>
+          <strong>Custo:</strong> {{ product.cost }} <br>
+          <strong>Medida:</strong> {{ product.measure }} <br>
+          <strong>Quantidade:</strong> {{ product.amount }}<br>
+        </div>
+      
+
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,12 +1,11 @@
 import app
 import model
 
-from google_images_search import GoogleImagesSearch
 
 from flask import Blueprint, render_template, current_app , request , session, redirect, url_for
 
 
-appetizer = Blueprint('appetizer' , __name__ , url_prefix='/entrada')
+product = Blueprint('product' , __name__ , url_prefix='/produto')
 
 
 
@@ -15,9 +14,7 @@ appetizer = Blueprint('appetizer' , __name__ , url_prefix='/entrada')
 
 
 
-
-
-@appetizer.route('/', methods = ['GET','POST'])
+@product.route('/', methods = ['GET','POST'])
 def index():
 
     return "<h3>Legumes Selecionados</h3>"
@@ -35,21 +32,23 @@ def get_image_url(item_name):
 
 
 
-@appetizer.route('/listar', methods = ['GET','POST'])
+@product.route('/listar', methods = ['GET','POST'])
 def list():
     
+    data = model.get_person()
+    if data==[]:
+        model.add_person()
 
-
-    data = model.get_list_filter_appetizer()
+    data = model.get_list_filter_product()
     
 
-    return render_template('appetizer/list.html' , data=data )
+    return render_template('product/list.html' , data=data )
 
 
 
 
 
-@appetizer.route('/adicionar', methods = ['GET','POST'])
+@product.route('/adicionar', methods = ['GET','POST'])
 def add():
 
     
@@ -60,25 +59,25 @@ def add():
         measure = request.form['measure']
         amount = request.form['amount']
 
-        data = model.add_appetizer(name, tag, cost, measure, amount)
+        data = model.add_product(name, tag, cost, measure, amount)
         if data:
-            return redirect(url_for('appetizer.list'))
+            return redirect(url_for('product.list'))
             pass
 
 
-    return render_template('appetizer/add.html')
+    return render_template('product/add.html')
 
 
 
 
-@appetizer.route('/editar', methods = ['GET','POST'])
+@product.route('/editar', methods = ['GET','POST'])
 def edit():
 
     return "<h3>Legumes Selecionados</h3><p>editar</p>"
 
 
 
-@appetizer.route('/apagar', methods = ['GET','POST'])
+@product.route('/apagar', methods = ['GET','POST'])
 def delete():
 
     return "<h3>Legumes Selecionados</h3><p>apagar</p>"
@@ -87,7 +86,7 @@ def delete():
 
 
 def configure(app):
-	app.register_blueprint(appetizer)
+	app.register_blueprint(product)
 
 
 

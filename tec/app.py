@@ -2,7 +2,8 @@
 #import painel
 
 import model
-import appetizer
+import order
+import product
 
 
 from flask import Flask
@@ -17,7 +18,8 @@ app.secret_key = b'guerra aos senhores'
 
 
 #admin.configure(app)
-appetizer.configure(app)
+order.configure(app)
+product.configure(app)
 db.configure(app)
 
 Bootstrap4(app)

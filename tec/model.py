@@ -12,14 +12,40 @@ def configure(app):
 
 
 
-class Appetizer(SQLModel, table=True):
+class Product(SQLModel, table=True):
+
+	id: Optional[int] = Field(default=None, primary_key=True)
+	name: str
+	description: str
+
+class Person(SQLModel, table=True):
 	
 	id: Optional[int] = Field(default=None, primary_key=True)
-	name:str
-	tag:str
-	cost:str
-	measure:str  
-	amount: str
+	name: str
+	email: str
+	orders: List['Order']=Relationship()
+
+
+
+
+
+
+class Order(SQLModel, table=True):
+
+	id: Optional[int] = Field(default=None, primary_key=True)
+	person_id: int = Field(foreign_key="person.id")
+	#products: List['Person']=Relationship()
+
+
+class OrderProduct(SQLModel, table=True):
+	
+	id: Optional[int] = Field(default=None, primary_key=True)
+	order_id: int = Field(foreign_key="order.id")
+	product_id: int = Field(foreign_key="product.id")
+	quantity: int
+	price: float
+	sold:str #para cintrolar os preço dos produtos que entram
+	movement: str #entrada ou saida
 
 
 
@@ -28,46 +54,64 @@ engine = create_engine('sqlite:///db.db')
 SQLModel.metadata.create_all(engine)
 
 
-def list_all(db: Session, question_id: int):
-    return db.get(Question, question_id)
 
-
-
-
-def get_list_appetizer():
+def get_list_filter_order():
 	with Session(engine) as session:
-	
-		query = select(Appetizer)
-		data = session.exec(query).all()
-
-		return data
-
-
-def get_list_filter_appetizer():
-	with Session(engine) as session:
-		#coloar filtros
-		query = select(Appetizer)
+		
+		query = select(Order)
 		data = session.exec(query).all()
 
 		return data
 
 
 
-def add_appetizer( name:str, tag:str, cost:str, measure:str, amount:str):
-	appetizer = Appetizer()
-	appetizer.name = name
-	appetizer.tag = tag
-	appetizer.cost = cost
-	appetizer.measure = measure
-	appetizer.amount = amount
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#product
+def get_list_filter_product():
 	with Session(engine) as session:
 		
-		session.add(appetizer)
-		
-		session.commit()
-		session.refresh(appetizer)
+		query = select(Product)
+		data = session.exec(query).all()
 
-		return appetizer
+		return data
 
+
+
+
+
+
+"""
+mudar esse trecho para o controle de Person
+ |
+ V
+"""
+def add_person():
+    with Session(engine) as session:
+        new_person = Person(name="default", email='default@gmail.com')
+        session.add(new_person)
+        session.commit()
+
+def get_person():
+	with Session(engine) as session:		
+		query = select(Person)
+		data = session.exec(query).all()
+
+		return data
+"""
+mudar esse trecho para o controle de Person
+ A
+ |
+"""

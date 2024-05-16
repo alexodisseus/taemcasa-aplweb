@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulário de Produto{% endblock %}
+
+{% block styles %}
+<style>
+  /* Adicione seus estilos personalizados aqui */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h2 class="text-center mb-4">Formulário de Produto</h2>
+<form method="post">
+  <div class="form-group">
+    <label for="name">Nome:</label>
+    <input type="text" name="name" class="form-control" id="name" placeholder="Digite o name do produto" required>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="tag">Categoria:</label>
+      <input type="text" name="tag" class="form-control" id="tag" placeholder="Digite a tag do produto" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="cost">Custo:</label>
+      <input type="number" name="cost" step="0.01" class="form-control" id="cost" placeholder="Digite o cost do produto" required>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="measure">Medida:</label>
+      <input type="text" name="measure" class="form-control" id="measure" placeholder="Digite a measure do produto" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="amount">amount:</label>
+      <input type="number" name="amount" class="form-control" id="amount" placeholder="Digite a amount do produto" required>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+</form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Adicione seus scripts personalizados aqui
+</script>
+{% endblock %}
