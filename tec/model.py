@@ -87,7 +87,21 @@ def get_list_filter_product():
 		data = session.exec(query).all()
 
 		return data
+def get_view_product(id:int):
+	with Session(engine) as session:
+		
+		product = session.get(Product , id)
+		
 
+		return product
+
+
+
+def add_product(name: str, description: str):
+	with Session(engine) as session:
+		product = Product(name=name, description=description)
+		session.add(product)
+		session.commit()
 
 
 

@@ -41,9 +41,21 @@ def list():
 
     data = model.get_list_filter_product()
     
-
     return render_template('product/list.html' , data=data )
 
+
+
+
+@product.route('/ver/<id>', methods = ['GET','POST'])
+def view(id):
+    id_view = id
+    print(id_view)
+
+    data = model.get_view_product(id_view)
+    print(data)
+    #mudar o html colocar no padrão
+
+    return render_template('product/view.html' , data=data )
 
 
 
@@ -51,15 +63,12 @@ def list():
 @product.route('/adicionar', methods = ['GET','POST'])
 def add():
 
-    
+    #talves mudar para adicionar fotos dos produtos tambem
     if request.method == 'POST':
         name = request.form['name']
-        tag = request.form['tag']
-        cost = request.form['cost']
-        measure = request.form['measure']
-        amount = request.form['amount']
+        description = request.form['description']
 
-        data = model.add_product(name, tag, cost, measure, amount)
+        data = model.add_product(name,description)
         if data:
             return redirect(url_for('product.list'))
             pass
