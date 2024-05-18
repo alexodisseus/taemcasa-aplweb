@@ -102,8 +102,32 @@ def add_product(name: str, description: str):
 		product = Product(name=name, description=description)
 		session.add(product)
 		session.commit()
+		session.refresh(product)
+		return product
+		
 
 
+
+def edit_product_get(id:int):
+	with Session(engine) as session:
+		
+		product = session.get(Product , id)
+		
+
+		return product
+
+
+def edit_product(id:int, name: str, description: str):
+	with Session(engine) as session:
+		product = session.get(Product , id)
+
+		if product:
+			product.name = name
+			product.description = description
+			session.commit()
+			session.refresh(product)
+			return product
+		return None
 
 
 

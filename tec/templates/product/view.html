@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização do Produto</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .product-img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: cover;
-        }
-        .product-info {
-            margin-top: 20px;
-        }
-        .price-history,
-        .sales-history {
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+
+{% block styles %}
+<style>
+    .product-img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+    }
+    .product-info {
+        margin-top: 20px;
+    }
+    .price-history,
+    .sales-history {
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -30,9 +32,14 @@
         </div>
         <div class="row product-info">
             <div class="col-md-12">
-                <h1 id="product-name">Tomate</h1>
-                <p id="product-description">Tomate do Canelas</p>
-                <p>ID do Produto: <span id="product-id">1</span></p>
+                <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h3 id="product-name">Tomate</h3>
+            </div>
+            <a href="{{url_for('product.edit', id=data.id )}}" class="btn btn-outline-primary btn-sm">Editar</a>
+          </div>
+                
+                <p id="product-description">{{data.description}}</p>
             </div>
         </div>
         <div class="row price-history">
@@ -92,6 +99,35 @@
             </div>
         </div>
     </div>
+
+
+
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização do Produto</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .product-info {
+            margin-top: 20px;
+        }
+        .price-history,
+        .sales-history {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

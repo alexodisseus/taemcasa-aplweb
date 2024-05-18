@@ -71,7 +71,7 @@ def add():
         data = model.add_product(name,description)
         if data:
             return redirect(url_for('product.list'))
-            pass
+        
 
 
     return render_template('product/add.html')
@@ -79,10 +79,20 @@ def add():
 
 
 
-@product.route('/editar', methods = ['GET','POST'])
-def edit():
+@product.route('/editar/<id>', methods = ['GET','POST'])
+def edit(id):
 
-    return "<h3>Legumes Selecionados</h3><p>editar</p>"
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        
+        data = model.edit_product(id, name,description)
+        if data:
+            return redirect(url_for('product.list'))
+        
+    data = model.edit_product_get(id)
+
+    return render_template('product/edit.html' , data=data)
 
 
 
