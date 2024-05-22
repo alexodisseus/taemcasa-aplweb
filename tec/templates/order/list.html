@@ -3,28 +3,61 @@
 
 
 {% block content %}
-<div class="container">
-  <h2 class="text-center mb-4">Lista de Produtos</h2>
-  <ul class="list-group">
-    {% for product in data %}
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-3 col-3">
 
-          <img src="{{url_for('static', filename='img/icone2.png')}} " alt="{{ product.name }}" class="img-fluid">
-        </div>
-        <div class="col-md-9 col-9">
-          <strong>Nome:</strong> {{ product.name }} <br>
-          <strong>Categoria:</strong> {{ product.tag }}<br>
-          <strong>Custo:</strong> {{ product.cost }} <br>
-          <strong>Medida:</strong> {{ product.measure }} <br>
-          <strong>Quantidade:</strong> {{ product.amount }}<br>
-        </div>
-      
-
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
+<div class="container mt-5">
+  <h2 class="mb-4">Lista de Ordens</h2>
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Número da Ordem</th>
+        <th scope="col">Tipo de Pedido</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Exemplo de uma ordem -->
+      <tr>
+        <td>12345</td>
+        <td>Entrada</td>
+        <td>João Silva</td>
+        <td>
+          <button class="btn btn-transparent btn-sm">Ver</button>
+        </td>
+      </tr>
+      <!-- Repetir o bloco acima para cada ordem -->
+    </tbody>
+  </table>
 </div>
+
 {% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Ordens</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .btn-transparent {
+      background-color: transparent;
+      color: blue;
+      border: 1px solid blue;
+    }
+    .btn-transparent:hover {
+      background-color: rgba(0, 0, 255, 0.1); /* Leve fundo azul ao passar o mouse */
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

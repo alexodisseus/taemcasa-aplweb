@@ -5,29 +5,15 @@ import model
 from flask import Blueprint, render_template, current_app , request , session, redirect, url_for
 
 
-order = Blueprint('order' , __name__ , url_prefix='/entrada')
-
-
-
-
-
-
-
+order = Blueprint('order' , __name__ , url_prefix='/ordem')
 
 
 
 @order.route('/', methods = ['GET','POST'])
 def index():
 
+    return redirect(url_for('order.list'))
     return "<h3>Legumes Selecionados</h3>"
-
-
-
-def get_image_url(item_name):
-    query = item_name + " imagem"
-    for url in search(query, num=1, stop=1):
-        return url
-
 
 
 
@@ -41,7 +27,11 @@ def list():
     if data==[]:
         model.add_person()
 
-    data = model.get_list_filter_order()
+
+
+    data = model.get_all_orders()
+    print(data)
+
     
 
     return render_template('order/list.html' , data=data )
