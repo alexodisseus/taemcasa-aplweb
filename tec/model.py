@@ -34,8 +34,7 @@ class Order(SQLModel, table=True):
 
 	id: Optional[int] = Field(default=None, primary_key=True)
 	person_id: int = Field(foreign_key="person.id")
-	person: Optional[Person] = Relationship(back_populates="orders")
-	products: List['OrderProduct'] = Relationship(back_populates="order")
+	products: List['OrderProduct']=Relationship()
 
 
 class OrderProduct(SQLModel, table=True):
@@ -160,19 +159,25 @@ mudar esse trecho para o controle de Person
 
 def get_order():
 	with Session(engine) as session:
-		query = select(Order)
-		data = session.exec(query).all()
+		
+		data = session.get(Order ,  1)
 
-		return data
+		return [data,data.products]
+
+
+
+"""
+mudar função 
+"""
 
 
 def get_all_orders():
 	with Session(engine) as session:
-		statement = (
-			select(Order.id, Person.name, OrderProduct.movement)
-			.join(Order.person)
-			.join(Order.products)
-		)
-		results = session.exec(statement)
-		orders = results.all()
-		return orders
+		query = select(
+			Order.id , 
+			Person.name, 
+			OrderProduct.movement).join(Person, Order.person_id == Person.id).join(OrderProduct, Order.id == OrderProduct.order_id)
+
+
+		data = session.exec(query).all()
+		return data

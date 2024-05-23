@@ -30,6 +30,7 @@ def list():
 
 
     data = model.get_all_orders()
+    #data = model.get_order()
     print(data)
 
     
@@ -58,6 +59,15 @@ def add():
 
 
     return render_template('order/add.html')
+
+
+@order.route('/ver/<id>', methods = ['GET','POST'])
+def view(id):
+    print(id)
+    return render_template('order/view.html')
+  
+
+
 
 
 
