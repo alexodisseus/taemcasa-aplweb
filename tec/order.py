@@ -44,7 +44,7 @@ def list():
 @order.route('/adicionar', methods = ['GET','POST'])
 def add():
 
-    
+    """
     if request.method == 'POST':
         name = request.form['name']
         tag = request.form['tag']
@@ -56,7 +56,16 @@ def add():
         if data:
             return redirect(url_for('order.list'))
             pass
-
+    """
+    #trocar por ususario
+    usuario = model.get_person()
+    usuario_id  = usuario[0].id
+    
+    #data = False
+    data = model.add_order_default(usuario_id)
+    
+    if data:
+        return redirect(url_for('order.list'))
 
     return render_template('order/add.html')
 

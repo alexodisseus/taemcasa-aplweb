@@ -34,6 +34,8 @@ class Order(SQLModel, table=True):
 
 	id: Optional[int] = Field(default=None, primary_key=True)
 	person_id: int = Field(foreign_key="person.id")
+	movement: Optional[str] #entrada ou saida
+
 	products: List['OrderProduct']=Relationship()
 
 
@@ -45,7 +47,6 @@ class OrderProduct(SQLModel, table=True):
 	quantity: int
 	price: float
 	sold:str #para cintrolar os preço dos produtos que entram
-	movement: str #entrada ou saida
 
 
 
@@ -176,8 +177,21 @@ def get_all_orders():
 		query = select(
 			Order.id , 
 			Person.name, 
-			OrderProduct.movement).join(Person, Order.person_id == Person.id).join(OrderProduct, Order.id == OrderProduct.order_id)
+			Order.movement).join(
+			Person)
 
 
 		data = session.exec(query).all()
 		return data
+
+
+def add_order_default(id: int):
+	with Session(engine) as session:
+		order = Order(person_id=id)
+		session.add(order)
+		session.commit()
+		session.refresh(order)
+		return order
+
+
+
